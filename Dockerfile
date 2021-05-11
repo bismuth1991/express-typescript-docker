@@ -4,7 +4,7 @@ EXPOSE 6789
 
 WORKDIR /node
 
-COPY --chown=node:node package*.json ./
+COPY --chown=node:node package.json package-lock.json* ./
 
 RUN mkdir app && chown -R node:node .
 
