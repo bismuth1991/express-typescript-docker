@@ -22,8 +22,12 @@ CMD ["node", ".bin/www"]
 
 FROM prod as dev
 
+WORKDIR /node
+
 ENV NODE_ENV=development
 
 RUN npm install --only=development
+
+WORKDIR /node/app
 
 CMD ["../node_modules/.bin/nodemon", "./bin/www"]
