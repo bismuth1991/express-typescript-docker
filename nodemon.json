@@ -1,0 +1,12 @@
+{
+    "ext": "js,ts,json,html,css",
+    "watch": [
+        "**/*.ts",
+        "**/*.js"
+    ],
+    "ignore": [
+        "dist",
+        "node_modules"
+    ],
+    "exec": "node --inspect=0.0.0.0:9229 -r ts-node/register ./index.ts"
+}

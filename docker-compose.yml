@@ -2,9 +2,12 @@ version: '2.4'
 
 services: 
     zing-storage:
-        build: .
+        build: 
+            context: .
+            target: dev
         ports: 
             - 6789:6789
+            - 9229:9229
         volumes:
             - .:/node/app
             - /node/app/node_modules
