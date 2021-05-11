@@ -26,4 +26,4 @@ ENV NODE_ENV=development
 
 RUN npm install --only=development
 
-CMD ["nodemon", "./bin/www"]
+CMD ["../node_modules/.bin/nodemon", "./bin/www"]
