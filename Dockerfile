@@ -32,7 +32,8 @@ FROM base as dev
 
 ENV NODE_ENV=development
 
-RUN npm install --only=development
+RUN npm config list \
+    && npm install --only=development
 
 WORKDIR /node/app
 
@@ -40,23 +41,23 @@ CMD ["nodemon"]
 
 
 ##
-# Build stage. Compile typescript, potentially run test here
+# Security & Audit stage, potentially run test here
 ##
 
-FROM dev as build
+FROM dev as audit
 
 COPY --chown=node:node . .
 
-RUN npm run build
-
-
-##
-# Security & Audit stage
-##
-
-FROM build as audit
-
 RUN npm audit
+
+
+##
+# Build stage. Compile typescript
+##
+
+FROM audit as build
+
+RUN npm run build
 
 
 ##
@@ -65,5 +66,11 @@ RUN npm audit
 FROM base as prod
 
 COPY --from=build /node/app/dist .
+
+HEALTHCHECK --interval=5m \
+    --timeout=3s \
+    --start-period=5s \
+    --retries=3 \
+    CMD curl -f http://localhost:6789/health-check || exit 1
 
 CMD ["node", "./index.js"]
