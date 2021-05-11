@@ -16,7 +16,9 @@ RUN mkdir app && chown -R node:node .
 
 USER node
 
-RUN npm install --only=production && npm cache clean --force
+RUN npm config list \
+    && npm ci \
+    && npm cache clean --force
 
 ENV PATH /node/node_modules/.bin:$PATH
 
@@ -46,6 +48,15 @@ FROM dev as build
 COPY --chown=node:node . .
 
 RUN npm run build
+
+
+##
+# Security & Audit stage
+##
+
+FROM build as audit
+
+RUN npm audit
 
 
 ##
