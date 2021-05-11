@@ -14,6 +14,8 @@ USER node
 
 RUN npm install --only=production && npm cache clean --force
 
+ENV PATH /node/node_modules/.bin/:$PATH
+
 WORKDIR /node/app
 
 COPY --chown=node:node . .
@@ -30,4 +32,4 @@ RUN npm install --only=development
 
 WORKDIR /node/app
 
-CMD ["../node_modules/.bin/nodemon", "./bin/www"]
+CMD ["nodemon", "./bin/www"]
