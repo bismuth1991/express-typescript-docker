@@ -1,4 +1,6 @@
-FROM node:14-alpine
+FROM node:14-alpine as prod
+
+ENV NODE_ENV=production
 
 EXPOSE 6789
 
@@ -10,10 +12,18 @@ RUN mkdir app && chown -R node:node .
 
 USER node
 
-RUN npm install && npm cache clean --force
+RUN npm install --only=production && npm cache clean --force
 
 WORKDIR /node/app
 
 COPY --chown=node:node . .
 
 CMD ["node", ".bin/www"]
+
+FROM prod as dev
+
+ENV NODE_ENV=development
+
+RUN npm install --only=development
+
+CMD ["nodemon", "./bin/www"]
