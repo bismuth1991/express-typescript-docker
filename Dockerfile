@@ -4,6 +4,8 @@
 
 FROM node:14-alpine as base
 
+RUN apk add curl
+
 ENV NODE_ENV=production
 
 EXPOSE 6789
@@ -71,6 +73,6 @@ HEALTHCHECK --interval=5m \
     --timeout=3s \
     --start-period=5s \
     --retries=3 \
-    CMD curl -f http://localhost:6789/health-check || exit 1
+    CMD curl -f http://localhost:6789/healthcheck || exit 1
 
 CMD ["node", "./index.js"]

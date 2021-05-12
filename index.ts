@@ -2,9 +2,9 @@
  * Module dependencies.
  */
 
-import app from './app'
 import http from 'http'
-import gracefulShutdown from 'http-graceful-shutdown'
+import app from './app'
+import enableGracefulShutdown from './utils/graceful-shutdown'
 
 const debug = require('debug')('zing-admin-storage:server')
 
@@ -15,11 +15,14 @@ const debug = require('debug')('zing-admin-storage:server')
 const port = normalizePort(process.env.PORT || '6789')
 app.set('port', port)
 
+
 /**
- * Create HTTP server.
+ * Create HTTP server. Enable graceful shutdown
  */
 
 const server = http.createServer(app)
+enableGracefulShutdown(server)
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,13 +31,13 @@ const server = http.createServer(app)
 server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
-gracefulShutdown(server)
+
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val: string) {
     const port = parseInt(val, 10)
 
     if (isNaN(port)) {
@@ -50,11 +53,12 @@ function normalizePort(val) {
     return false
 }
 
+
 /**
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error: NodeJS.ErrnoException) {
     if (error.syscall !== 'listen') {
         throw error
     }
@@ -75,6 +79,7 @@ function onError(error) {
             throw error
     }
 }
+
 
 /**
  * Event listener for HTTP server "listening" event.
