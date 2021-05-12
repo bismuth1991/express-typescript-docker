@@ -29,7 +29,7 @@ const options = {
     healthChecks: {
         '/healthcheck': onHealthCheck,
     },
-    timeout: 10000,                  
+    timeout: process.env.NODE_ENV === 'production' ? 10000 : 1000,                  
     signals: ['SIGTERM', 'SIGINT'],
     beforeShutdown,
     onSignal,                        
