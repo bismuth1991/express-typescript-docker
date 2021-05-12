@@ -25,17 +25,17 @@ function onHealthCheck () {
     ])
 }
 
-const options = {
-    healthChecks: {
-        '/healthcheck': onHealthCheck,
-    },
-    timeout: 10000,                  
-    signals: ['SIGTERM', 'SIGINT'],
-    beforeShutdown,
-    onSignal,                        
-    onShutdown,                      
-};
-
-const enableGracefulShutdown = (server: Server) => createTerminus(server, options)
+function enableGracefulShutdown (server: Server) {
+    return createTerminus(server, {
+        healthChecks: {
+            '/healthcheck': onHealthCheck,
+        },
+        timeout: 10000,                  
+        signals: ['SIGTERM', 'SIGINT'],
+        beforeShutdown,
+        onSignal,                        
+        onShutdown,                      
+    })
+} 
 
 export default enableGracefulShutdown
