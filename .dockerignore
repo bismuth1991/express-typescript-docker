@@ -5,8 +5,9 @@ dist/
 .git/
 .gitignore
 
-# Docker compose files
+# Docker compose files & deploy script
 docker-compose*.yml
+deploy
 
 # Logs
 logs
