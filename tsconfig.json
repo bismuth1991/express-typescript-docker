@@ -1,28 +1,28 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "CommonJS",
-        "lib": [
-            "ESNext"
-        ],
-        "outDir": "dist",
-        "allowJs": true,
-        "sourceMap": true,
-        "strict": true,
-        "noImplicitAny": false,    
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "noUncheckedIndexedAccess": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-    },
-    "include": [
-        "public",
-        "**/*.ts",
-        "**/*.js"
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
+    "lib": [
+      "ESNext"
     ],
-    "exclude": ["dist"]
+    "outDir": "dist",
+    "allowJs": true,
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": false,    
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+  },
+  "include": [
+    "public",
+    "**/*.ts",
+    "**/*.js"
+  ],
+  "exclude": ["dist"]
 }
