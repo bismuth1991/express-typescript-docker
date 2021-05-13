@@ -69,9 +69,8 @@ FROM base as prod
 
 COPY --from=build /node/app/dist .
 
-HEALTHCHECK --interval=1m \
+HEALTHCHECK --interval=10s \
     --timeout=3s \
-    --start-period=5s \
     --retries=3 \
     CMD curl -f http://localhost:6789/healthcheck || exit 1
 
