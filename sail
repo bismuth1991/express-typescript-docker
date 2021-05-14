@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 check_file_requirements_dev() {
     if  [ ! -f docker-compose.yml ]; then
