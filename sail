@@ -1,5 +1,31 @@
 #!/bin/sh
 
+check_file_requirements_dev() {
+    if  [ ! -f docker-compose.yml ]; then
+        echo "Missing file: docker-compose.yml"
+        exit 1
+    elif  [ ! -f docker-compose.dev.yml ]; then
+        echo "Missing file: docker-compose.dev.yml"
+        exit 1
+    elif [ ! -f .env.development ]; then
+        echo "Missing file: .env.development"
+        exit 1
+    fi
+}
+
+check_file_requirements_prod() {
+    if  [ ! -f docker-compose.yml ]; then
+        echo "Missing file: docker-compose.yml"
+        exit 1
+    elif  [ ! -f docker-compose.prod.yml ]; then
+        echo "Missing file: docker-compose.prod.yml"
+        exit 1
+    elif  [ ! -f .env.production ]; then
+        echo "Missing file: .env.production"
+        exit 1
+    fi
+}
+
 create_empty_acme_cert_file_if_not_exists() {
     if [ ! -e letsencrypt/acme.json ]; then
         mkdir letsencrypt
@@ -8,6 +34,7 @@ create_empty_acme_cert_file_if_not_exists() {
 }
 
 dev() {
+    check_file_requirements_dev
     docker-compose \
         --env-file .env.development \
         --file docker-compose.yml \
@@ -18,6 +45,7 @@ dev() {
 }
 
 deploy() {
+    check_file_requirements_prod
     create_empty_acme_cert_file_if_not_exists
     docker-compose \
         --env-file .env.production \
@@ -51,19 +79,21 @@ case "$1" in
         ;;
     *)
         cat << EOF
-Command line interface to quickly run docker-compose commands. This assumes that you have already set up the following 3 files:
+Command line interface to quickly run docker-compose commands. Make sure that you have already set up the following files in your project root folder:
     (1) docker-compose.yml 
     (2) docker-compose.dev.yml
     (3) docker-compose.prod.yml
+    (4) .env.development
+    (5) .env.production
 
 Usage:
     sail <command>
 
 Available commands:
-    dev    ................... Start the app in development environment
-    deploy ................... Build & deploy the app to production
-    down   ................... Terminate the app
-    logs   ................... Dump & follow the app's logs
+    dev .................... Start the app in dev environment
+    deploy ................. Build & deploy the app to production
+    down ................... Terminate the app
+    logs ................... Dump & follow the app's logs
 EOF
         ;;
 esac
