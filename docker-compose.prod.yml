@@ -22,16 +22,16 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./letsencrypt:/letsencrypt
         depends_on:
-            zingstorage:
+            express:
               condition: service_healthy
         
-    zingstorage:
+    express:
         build: 
             target: prod
         env_file: 
             - .env.production
         labels:
             - traefik.enable=true
-            - "traefik.http.routers.zingstorage.rule=Host(`${DOMAIN_NAME}`)"
-            - traefik.http.routers.zingstorage.tls=true
-            - traefik.http.routers.zingstorage.tls.certresolver=le
+            - "traefik.http.routers.express.rule=Host(`${DOMAIN_NAME}`)"
+            - traefik.http.routers.express.tls=true
+            - traefik.http.routers.express.tls.certresolver=le
