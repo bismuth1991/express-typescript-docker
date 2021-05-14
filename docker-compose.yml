@@ -4,8 +4,6 @@ services:
     express:
         build: 
             context: .
-        ports: 
-            - 6789:6789
         volumes:
             - .:/node/app
             - /node/app/node_modules

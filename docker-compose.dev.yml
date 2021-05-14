@@ -5,6 +5,7 @@ services:
         build: 
             target: dev
         ports: 
+            - 6789:6789
             - 9229:9229
         env_file: 
             - .env.development

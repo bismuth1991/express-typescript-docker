@@ -30,8 +30,14 @@ services:
             target: prod
         env_file: 
             - .env.production
+        ports: 
+            - 6789-6800:6789
+        scale: 5
         labels:
             - traefik.enable=true
             - "traefik.http.routers.express.rule=Host(`${DOMAIN_NAME}`)"
             - traefik.http.routers.express.tls=true
             - traefik.http.routers.express.tls.certresolver=le
+            - traefik.http.services.express.loadbalancer.healthcheck.path=/healthcheck
+            - traefik.http.services.express.loadbalancer.healthcheck.interval=15s
+            - traefik.http.services.express.loadbalancer.healthcheck.timeout=3s
