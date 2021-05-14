@@ -1,7 +1,13 @@
+import debug from 'debug'
 import {Server} from 'http';
 import {createTerminus} from '@godaddy/terminus'
 
+const log = debug('app:terminus')
+
 function onSignal () {
+    log('Recieved shutdown signal')
+    log('Gracefully shutting down...')
+
     return Promise.all([
         // Cleanup logic, eg. closing database connections
     ]);
@@ -23,6 +29,11 @@ function onHealthCheck () {
     return Promise.all([
         // Healthcheck logic
     ])
+        .then(() => log('Healthcheck ok'))
+        .catch((e: unknown) => {
+            log('Healthcheck failed')
+            throw e
+        })
 }
 
 function enableGracefulShutdown (server: Server) {

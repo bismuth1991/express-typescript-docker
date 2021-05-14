@@ -3,10 +3,9 @@
  */
 
 import http from 'http'
+import debug from 'debug'
 import app from './app'
 import enableGracefulShutdown from './utils/graceful-shutdown'
-
-const debug = require('debug')('zing-admin-storage:server')
 
 /**
  * Get port from environment and store in Express.
@@ -90,5 +89,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr!.port
-    debug('Listening on ' + bind)
+    debug('app:http')('Listening on ' + bind)
 }
