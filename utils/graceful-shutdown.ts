@@ -4,21 +4,21 @@ import {createTerminus} from '@godaddy/terminus'
 
 const log = debug('app:terminus')
 
-function onSignal () {
+function beforeShutdown () {
     log('Recieved shutdown signal')
     log('Gracefully shutting down...')
 
-    return Promise.all([
-        // Cleanup logic, eg. closing database connections
-    ]);
-}
-
-function beforeShutdown () {
     // Recommended for Kubernetes.
     // https://github.com/godaddy/terminus#how-to-set-terminus-up-with-kubernetes
     return new Promise(resolve => {
         setTimeout(resolve, 5000)
     })
+}
+
+function onSignal () {
+    return Promise.all([
+        // Cleanup logic, eg. closing database connections
+    ]);
 }
 
 function onShutdown () {
