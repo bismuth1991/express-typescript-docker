@@ -35,6 +35,8 @@ FROM base as dev
 
 ENV NODE_ENV=development
 
+EXPOSE 9229
+
 RUN npm config list \
     && npm install --only=development
 
