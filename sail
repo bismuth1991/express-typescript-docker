@@ -64,6 +64,10 @@ logs() {
     docker-compose logs -f
 }
 
+run_test() {
+    docker-compose exec express npm run test
+}
+
 case "$1" in
     dev)
         dev
@@ -76,6 +80,9 @@ case "$1" in
         ;;
     logs)
         logs
+        ;;
+    test)
+        run_test
         ;;
     *)
         cat << EOF
@@ -90,10 +97,11 @@ Usage:
     sail <command>
 
 Available commands:
-    dev .................... Start the app in dev environment
+    dev .................... Start the app in DEV environment
     deploy ................. Build & deploy the app to production
     down ................... Terminate the app
     logs ................... Dump & follow the app's logs
+    test ................... Run test inside Docker DEV environment
 EOF
         ;;
 esac
