@@ -1,7 +1,6 @@
 {
-  "name": "zing-admin-storage",
-  "version": "0.0.0",
-  "private": true,
+  "name": "express-typescript-docker",
+  "version": "1.0.0",
   "scripts": {
     "start": "node ./dist/index.js",
     "dev": "nodemon",
