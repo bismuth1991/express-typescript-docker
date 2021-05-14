@@ -4,7 +4,8 @@
 
 FROM node:14-alpine as base
 
-RUN apk add curl
+RUN apk update \
+    && apk add --no-cache curl
 
 ENV NODE_ENV=production
 
