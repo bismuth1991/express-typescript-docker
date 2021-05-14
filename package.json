@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "dev": "nodemon",
-    "build": "rimraf dist/ && tsc && copyfiles -u 1 public/**/*.html public/**/*.css dist/public"
+    "build": "rimraf dist/ && tsc && copyfiles -u 1 public/**/*.html public/**/*.css dist/public",
+    "test": "echo \"There are no test yet!\" && exit 0"
   },
   "dependencies": {
     "@godaddy/terminus": "^4.7.2",

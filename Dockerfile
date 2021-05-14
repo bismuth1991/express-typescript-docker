@@ -2,7 +2,7 @@
 # Base stage for all future stages, with only prod dependencies, no code yet
 ##
 
-FROM node:14-alpine as base
+FROM node:14-alpine AS base
 
 RUN apk update \
     && apk add --no-cache curl
@@ -31,7 +31,7 @@ ENV PATH /node/node_modules/.bin:$PATH
 # since we bind-mount it
 ##
 
-FROM base as dev
+FROM base AS dev
 
 ENV NODE_ENV=development
 
@@ -46,12 +46,14 @@ CMD ["nodemon"]
 
 
 ##
-# Security & Audit stage, potentially run test here
+# Security, Audit & Testing stage
 ##
 
-FROM dev as audit
+FROM dev AS test
 
 COPY --chown=node:node . .
+
+RUN npm run test
 
 RUN npm audit
 
@@ -60,7 +62,7 @@ RUN npm audit
 # Build stage. Compile typescript
 ##
 
-FROM audit as build
+FROM test AS build
 
 RUN npm run build
 
@@ -68,7 +70,7 @@ RUN npm run build
 ##
 # Production stage. Only contains minimal deps & files
 ##
-FROM base as prod
+FROM base AS prod
 
 COPY --from=build /node/app/dist .
 
