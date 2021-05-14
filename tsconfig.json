@@ -20,9 +20,10 @@
     "isolatedModules": true,
   },
   "include": [
-    "public",
     "**/*.ts",
     "**/*.js"
   ],
-  "exclude": ["dist"]
+  "exclude": [
+    "dist"
+  ]
 }
