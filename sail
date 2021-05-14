@@ -8,12 +8,24 @@ create_empty_acme_cert_file_if_not_exists() {
 }
 
 dev() {
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+    docker-compose \
+        --env-file .env.development \
+        --file docker-compose.yml \
+        --file docker-compose.dev.yml \
+        up \
+        --build \
+        --detach
 }
 
 deploy() {
     create_empty_acme_cert_file_if_not_exists
-    docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+    docker-compose \
+        --env-file .env.production \
+        --file docker-compose.yml \
+        --file docker-compose.prod.yml \
+        up \
+        --build \
+        --detach
 }
 
 down() {
