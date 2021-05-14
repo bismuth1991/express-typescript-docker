@@ -4,12 +4,14 @@ dist/
 # Let's Encrypt
 letsencrypt/
 
-# Prod docker-compose file
-docker-compose.prod.yml
-
 # Dependency directories
 node_modules/
 jspm_packages/
+
+# dotenv environment variables file
+.env
+.env.development
+.env.production
 
 # Logs
 logs
@@ -62,9 +64,6 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-
-# dotenv environment variables file
-.env
 
 # next.js build output
 .next

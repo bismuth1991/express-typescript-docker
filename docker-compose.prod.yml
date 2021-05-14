@@ -1,0 +1,37 @@
+version: '2.4'
+
+services: 
+    traefik:
+        image: traefik:2.4.8
+        ports:
+            - 80:80
+            - 443:443
+        command: 
+            - --providers.docker=true
+            - --providers.docker.exposedbydefault=false
+            - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
+            - --entrypoints.web.http.redirections.entrypoint.to=websecure
+            - --entrypoints.web.http.redirections.entrypoint.scheme=https
+            - "--certificatesresolvers.le.acme.email=${LETSENCRYPT_EMAIL}"
+            - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+            - --certificatesresolvers.le.acme.tlschallenge=true
+            - --certificatesresolvers.le.acme.httpchallenge=true
+            - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./letsencrypt:/letsencrypt
+        depends_on:
+            zingstorage:
+              condition: service_healthy
+        
+    zingstorage:
+        build: 
+            target: prod
+        env_file: 
+            - .env.production
+        labels:
+            - traefik.enable=true
+            - "traefik.http.routers.zingstorage.rule=Host(`${DOMAIN_NAME}`)"
+            - traefik.http.routers.zingstorage.tls=true
+            - traefik.http.routers.zingstorage.tls.certresolver=le
