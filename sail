@@ -1,17 +1,41 @@
 #!/bin/sh
 
+create_empty_acme_cert_file_if_not_exists() {
+    if [ ! -e letsencrypt/acme.json ]; then
+        mkdir letsencrypt
+        touch letsencrypt/acme.json
+    fi
+}
+
+dev() {
+    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+}
+
+deploy() {
+    create_empty_acme_cert_file_if_not_exists
+    docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+}
+
+down() {
+    docker-compose down --remove-orphans
+}
+
+logs() {
+    docker-compose logs -f
+}
+
 case "$1" in
     dev)
-        docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+        dev
         ;;
     deploy)
-        docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+        deploy
         ;;
     down)
-        docker-compose down --remove-orphans
+        down
         ;;
     logs)
-        docker-compose logs -f
+        logs
         ;;
     *)
         cat << EOF
@@ -24,7 +48,7 @@ Usage:
     sail <command>
 
 Available commands:
-    dev    ................... Start the app in DEV environment
+    dev    ................... Start the app in development environment
     deploy ................... Build & deploy the app to production
     down   ................... Terminate the app
     logs   ................... Dump & follow the app's logs
