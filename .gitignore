@@ -4,9 +4,8 @@ dist/
 # Let's Encrypt
 letsencrypt/
 
-# Prod docker-compose file & deploy script
+# Prod docker-compose file
 docker-compose.prod.yml
-deploy
 
 # Dependency directories
 node_modules/

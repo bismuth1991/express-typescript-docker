@@ -4,10 +4,11 @@ services:
     zingstorage:
         build: 
             context: .
-            target: dev
         ports: 
             - 6789:6789
-            - 9229:9229
         volumes:
             - .:/node/app
             - /node/app/node_modules
+        environment: 
+            - DEBUG=app:*,express:*
+            - DEBUG_COLORS=true
