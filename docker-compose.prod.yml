@@ -32,7 +32,7 @@ services:
             - .env.production
         ports: 
             - 6789-6800:6789
-        scale: 5
+        scale: 1
         labels:
             - traefik.enable=true
             - "traefik.http.routers.express.rule=Host(`${DOMAIN_NAME}`)"
