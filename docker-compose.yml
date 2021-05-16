@@ -4,6 +4,3 @@ services:
     express:
         build: 
             context: .
-        volumes:
-            - .:/node/app
-            - /node/app/node_modules

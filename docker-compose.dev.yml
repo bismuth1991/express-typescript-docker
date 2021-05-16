@@ -9,3 +9,6 @@ services:
             - 9229:9229
         env_file: 
             - .env.development
+        volumes:
+            - .:/node/app
+            - /node/app/node_modules
