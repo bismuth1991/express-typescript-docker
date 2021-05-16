@@ -1,5 +1,5 @@
 {
-  "ext": "js,ts,html,css",
+  "ext": "js,ts,json,html,css",
   "watch": [
     "**/*.ts",
     "**/*.js",
@@ -10,5 +10,5 @@
     "dist",
     "node_modules"
   ],
-  "exec": "node --inspect=0.0.0.0:9229 -r ts-node/register ./index.ts"
+  "exec": "node --inspect=0.0.0.0:9229 -r ts-node-dev ./index.ts"
 }
