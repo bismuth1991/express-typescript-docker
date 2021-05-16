@@ -7,8 +7,8 @@ check_file_requirements_dev() {
     elif  [ ! -f docker-compose.dev.yml ]; then
         echo "Missing file: docker-compose.dev.yml"
         exit 1
-    elif [ ! -f .env.development ]; then
-        echo "Missing file: .env.development"
+    elif [ ! -f .development.env ]; then
+        echo "Missing file: .development.env"
         exit 1
     fi
 }
@@ -20,8 +20,8 @@ check_file_requirements_prod() {
     elif  [ ! -f docker-compose.prod.yml ]; then
         echo "Missing file: docker-compose.prod.yml"
         exit 1
-    elif  [ ! -f .env.production ]; then
-        echo "Missing file: .env.production"
+    elif  [ ! -f .production.env ]; then
+        echo "Missing file: .production.env"
         exit 1
     fi
 }
@@ -36,7 +36,7 @@ create_empty_acme_cert_file_if_not_exists() {
 dev() {
     check_file_requirements_dev
     docker-compose \
-        --env-file .env.development \
+        --env-file .development.env \
         --file docker-compose.yml \
         --file docker-compose.dev.yml \
         up \
@@ -48,7 +48,7 @@ deploy() {
     check_file_requirements_prod
     create_empty_acme_cert_file_if_not_exists
     docker-compose \
-        --env-file .env.production \
+        --env-file .production.env \
         --file docker-compose.yml \
         --file docker-compose.prod.yml \
         up \
@@ -94,11 +94,11 @@ case "$1" in
     *)
         cat << EOF
 Command line interface to quickly run docker-compose commands. Make sure that you have already set up the following files in your project root folder:
-    (1) docker-compose.yml 
+    (1) docker-compose.yml
     (2) docker-compose.dev.yml
     (3) docker-compose.prod.yml
-    (4) .env.development
-    (5) .env.production
+    (4) .development.env
+    (5) .production.env
 
 Usage:
     sail <command>

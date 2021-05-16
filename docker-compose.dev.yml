@@ -1,14 +1,14 @@
 version: '2.4'
 
-services: 
+services:
     express:
-        build: 
+        build:
             target: dev
-        ports: 
+        ports:
             - 6789:6789
             - 9229:9229
-        env_file: 
-            - .env.development
+        env_file:
+            - .development.env
         volumes:
             - .:/node/app
             - /node/app/node_modules

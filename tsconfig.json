@@ -9,7 +9,7 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": true,
-    "noImplicitAny": true,    
+    "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

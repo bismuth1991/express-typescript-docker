@@ -41,12 +41,12 @@ function enableGracefulShutdown (server: Server) {
         healthChecks: {
             '/healthcheck': onHealthCheck,
         },
-        timeout: 10000,                  
+        timeout: 10000,
         signals: ['SIGTERM', 'SIGINT'],
         beforeShutdown,
-        onSignal,                        
-        onShutdown,                      
+        onSignal,
+        onShutdown,
     })
-} 
+}
 
 export default enableGracefulShutdown

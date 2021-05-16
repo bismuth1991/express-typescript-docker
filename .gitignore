@@ -10,8 +10,8 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
-.env.development
-.env.production
+.development.env
+.production.env
 
 # Logs
 logs
