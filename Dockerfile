@@ -70,7 +70,10 @@ RUN npm run build
 ##
 # Production stage. Only contains minimal deps & files
 ##
+
 FROM base AS prod
+
+WORKDIR /node/app
 
 COPY --from=build /node/app/dist .
 
