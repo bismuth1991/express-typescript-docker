@@ -9,7 +9,8 @@
   ],
   "ignore": [
     "dist",
-    "node_modules"
+    "node_modules",
+    "letsencrypt"
   ],
   "exec": "node --inspect=0.0.0.0:9229 -r ts-node/register ./src/index.ts"
 }
