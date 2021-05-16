@@ -68,6 +68,10 @@ run_test() {
     docker-compose exec express npm run test
 }
 
+shell() {
+    docker-compose exec express bash
+}
+
 case "$1" in
     dev)
         dev
@@ -83,6 +87,9 @@ case "$1" in
         ;;
     test)
         run_test
+        ;;
+    shell)
+        shell
         ;;
     *)
         cat << EOF
@@ -101,7 +108,8 @@ Available commands:
     deploy ................. Build & deploy the app to production
     down ................... Terminate the app
     logs ................... Dump & follow the app's logs
-    test ................... Run test inside Docker DEV environment
+    test ................... Run test inside Docker's express app (DEV only)
+    shell .................. Open bash terminal inside Docker's express app
 EOF
         ;;
 esac
